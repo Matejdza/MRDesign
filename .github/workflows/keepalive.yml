@@ -1,0 +1,34 @@
+name: Drzi repozitorijum aktivnim
+
+# GitHub gasi zakazane zadatke ako u javnom repozitorijumu 60 dana nema promena.
+# Ovaj zadatak jednom nedeljno proveri datum poslednjeg commit-a i, ako je stariji
+# od 45 dana, napravi prazan commit da se satno osvezavanje nikad ne ugasi.
+
+on:
+  schedule:
+    - cron: "41 6 * * 1"   # svakog ponedeljka ujutru
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+
+      - name: Prazan commit ako je repozitorijum dugo miran
+        run: |
+          last=$(git log -1 --format=%ct)
+          now=$(date +%s)
+          days=$(( (now - last) / 86400 ))
+          echo "Poslednji commit pre $days dana."
+          if [ "$days" -ge 45 ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit --allow-empty -m "Odrzavanje: repozitorijum ostaje aktivan"
+            git push
+          fi
