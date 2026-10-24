@@ -1,0 +1,75 @@
+{
+  "updated_at": "2026-10-24T09:41+00:00",
+  "groups": {
+    "sve": {
+      "ukupno": 48,
+      "kontaktirano": 9,
+      "odgovorili": 2,
+      "zainteresovani": 1,
+      "nacrti": 17,
+      "novo": 22
+    },
+    "gradjevina": {
+      "ukupno": 38,
+      "kontaktirano": 9,
+      "odgovorili": 2,
+      "zainteresovani": 1,
+      "nacrti": 11,
+      "novo": 18
+    },
+    "ordinacije": {
+      "ukupno": 10,
+      "kontaktirano": 0,
+      "odgovorili": 0,
+      "zainteresovani": 0,
+      "nacrti": 6,
+      "novo": 4
+    }
+  },
+  "statusi": [
+    {
+      "status": "Novo",
+      "gradjevina": 18,
+      "ordinacije": 4,
+      "ukupno": 22
+    },
+    {
+      "status": "Nacrt spreman",
+      "gradjevina": 11,
+      "ordinacije": 6,
+      "ukupno": 17
+    },
+    {
+      "status": "Poslato",
+      "gradjevina": 7,
+      "ordinacije": 0,
+      "ukupno": 7
+    },
+    {
+      "status": "Odgovorio – nije zainteresovan",
+      "gradjevina": 1,
+      "ordinacije": 0,
+      "ukupno": 1
+    },
+    {
+      "status": "Zainteresovan – traži kratak video",
+      "gradjevina": 1,
+      "ordinacije": 0,
+      "ukupno": 1
+    }
+  ],
+  "pozivi": {
+    "gradjevina": {
+      "na_listi": 18,
+      "pozvano": 0
+    },
+    "ordinacije": {
+      "na_listi": 4,
+      "pozvano": 0
+    },
+    "sve": {
+      "na_listi": 22,
+      "pozvano": 0
+    }
+  }
+}

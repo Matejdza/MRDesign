@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="sr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MR Design outreach</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f3efe6;
+    --ink: #1f1d19;
+    --muted: #6d675c;
+    --rule: #d9d2c3;
+    --track: #e6e0d2;
+    --bar: #a59d8d;
+    --accent: #2f5b45;
+    --sans: "IBM Plex Sans", system-ui, sans-serif;
+    --serif: "Newsreader", Georgia, serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper: #191815; --ink: #ece7dc; --muted: #9c9587; --rule: #34312b; --track: #2a2824; --bar: #6f685c; --accent: #7fb595; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.5; }
+  .wrap { max-width: 68rem; margin: 0 auto; padding: 40px 16px 56px; }
+  .top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; border-bottom: 1px solid var(--ink); padding-bottom: 12px; }
+  .brand { font-family: var(--serif); font-size: 20px; letter-spacing: .01em; }
+  .stamp { color: var(--muted); font-size: 13px; }
+  .lead { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; padding: 40px 0; border-bottom: 1px solid var(--rule); }
+  .sentence { font-family: var(--serif); font-size: clamp(26px, 3.4vw, 40px); line-height: 1.22; margin: 0; font-weight: 400; }
+  .sentence b { font-weight: 500; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .seg { display: flex; gap: 0; margin-top: 28px; border: 1px solid var(--ink); width: max-content; max-width: 100%; }
+  .seg button { font: inherit; font-size: 13px; background: none; color: var(--ink); border: 0; padding: 7px 14px; cursor: pointer; }
+  .seg button + button { border-left: 1px solid var(--ink); }
+  .seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  .funnel { display: flex; flex-direction: column; gap: 18px; align-self: center; }
+  .step-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+  .step-name { font-size: 13px; color: var(--muted); }
+  .step-num { font-family: var(--serif); font-size: 28px; font-variant-numeric: tabular-nums; }
+  .step-rate { font-size: 12px; color: var(--muted); margin-left: 8px; font-variant-numeric: tabular-nums; }
+  .track { height: 10px; background: var(--track); }
+  .fill { height: 100%; width: 0; background: var(--bar); }
+  .step.main .fill { background: var(--accent); }
+  .lower { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; padding-top: 32px; }
+  h2 { font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; margin: 0 0 16px; }
+  .figs { display: flex; flex-direction: column; gap: 20px; }
+  .fig span { display: block; font-size: 13px; color: var(--muted); }
+  .fig strong { font-family: var(--serif); font-weight: 400; font-size: 34px; font-variant-numeric: tabular-nums; }
+  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 14px; }
+  th { text-align: left; font-weight: 500; color: var(--muted); font-size: 12px; padding: 0 8px 8px 0; border-bottom: 1px solid var(--ink); }
+  td { padding: 10px 8px 10px 0; border-bottom: 1px solid var(--rule); }
+  .num { text-align: right; }
+  .cellbar { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+  .cellbar i { display: block; height: 6px; background: var(--bar); }
+  .note { margin-top: 40px; color: var(--muted); font-size: 12px; max-width: 40rem; }
+  .err { color: var(--muted); padding: 40px 0; }
+  @media (max-width: 760px) {
+    .lead, .lower { grid-template-columns: 1fr; gap: 32px; }
+    .wrap { padding-top: 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand">MR Design, outreach</div>
+    <div class="stamp" id="stamp">Učitavam brojeve</div>
+  </div>
+
+  <section class="lead">
+    <div>
+      <p class="sentence" id="sentence">&nbsp;</p>
+      <div class="seg" role="group" aria-label="Niša">
+        <button type="button" data-g="sve" aria-pressed="true">Sve niše</button>
+        <button type="button" data-g="gradjevina" aria-pressed="false">Građevina</button>
+        <button type="button" data-g="ordinacije" aria-pressed="false">Ordinacije</button>
+      </div>
+    </div>
+    <div class="funnel" id="funnel" aria-label="Levak"></div>
+  </section>
+
+  <section class="lower">
+    <div>
+      <h2>Na čekanju</h2>
+      <div class="figs" id="figs"></div>
+    </div>
+    <div>
+      <h2>Status po niši</h2>
+      <table>
+        <thead><tr><th>Status</th><th class="num">Građevina</th><th class="num">Ordinacije</th><th class="num">Ukupno</th></tr></thead>
+        <tbody id="statusi"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <p class="note">Ova stranica prikazuje samo zbirne brojeve. Imena firmi, kontakti i beleške ostaju u privatnoj tabeli. Brojevi se osvežavaju automatski svakog sata.</p>
+</div>
+
+<script>
+(async () => {
+  const $ = (id) => document.getElementById(id);
+  const nf = new Intl.NumberFormat('sr-Latn');
+  const pf = (a, b) => (b ? Math.round((a / b) * 100) + '%' : '0%');
+  let stats;
+  try {
+    const res = await fetch('stats.json', { cache: 'no-store' });
+    if (!res.ok) throw new Error(res.status);
+    stats = await res.json();
+  } catch (e) {
+    $('stamp').textContent = 'Brojevi trenutno nisu dostupni';
+    $('sentence').textContent = 'Nije uspelo učitavanje brojeva.';
+    return;
+  }
+
+  const when = new Date(stats.updated_at);
+  $('stamp').textContent = 'Ažurirano ' + when.toLocaleString('sr-Latn', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
+
+  const max = Math.max(...stats.statusi.map((s) => s.ukupno), 1);
+  $('statusi').replaceChildren(...stats.statusi.map((s) => {
+    const tr = document.createElement('tr');
+    const cell = (t, cls) => { const td = document.createElement('td'); if (cls) td.className = cls; td.textContent = t; tr.append(td); return td; };
+    cell(s.status); cell(nf.format(s.gradjevina), 'num'); cell(nf.format(s.ordinacije), 'num');
+    const td = cell('', 'num'); const w = document.createElement('div'); w.className = 'cellbar';
+    const bar = document.createElement('i'); bar.style.width = (s.ukupno / max) * 72 + 'px';
+    const n = document.createElement('span'); n.textContent = nf.format(s.ukupno);
+    w.append(bar, n); td.append(w);
+    return tr;
+  }));
+
+  function draw(g) {
+    const k = stats.groups[g];
+    const p = stats.pozivi[g] || { na_listi: 0, pozvano: 0 };
+    document.querySelectorAll('.seg button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.g === g)));
+
+    const s = $('sentence'); s.replaceChildren();
+    const add = (t, bold) => { const el = bold ? document.createElement('b') : document.createTextNode(t); if (bold) el.textContent = t; s.append(el); };
+    add('Od '); add(nf.format(k.ukupno), true); add(' leadova kontaktirano je '); add(nf.format(k.kontaktirano), true);
+    add('. Odgovorilo je '); add(nf.format(k.odgovorili), true); add(', a zainteresovanih je '); add(nf.format(k.zainteresovani), true); add('.');
+
+    const steps = [
+      ['Leadova u bazi', k.ukupno, null],
+      ['Kontaktirano', k.kontaktirano, pf(k.kontaktirano, k.ukupno)],
+      ['Odgovorili', k.odgovorili, pf(k.odgovorili, k.kontaktirano)],
+      ['Zainteresovani', k.zainteresovani, pf(k.zainteresovani, k.odgovorili)],
+    ];
+    $('funnel').replaceChildren(...steps.map(([name, n, rate], i) => {
+      const d = document.createElement('div'); d.className = 'step' + (i === 3 ? ' main' : '');
+      const head = document.createElement('div'); head.className = 'step-head';
+      const l = document.createElement('span'); l.className = 'step-name'; l.textContent = name;
+      const r = document.createElement('span');
+      const num = document.createElement('span'); num.className = 'step-num'; num.textContent = nf.format(n);
+      r.append(num);
+      if (rate) { const rt = document.createElement('span'); rt.className = 'step-rate'; rt.textContent = rate + ' od prethodnog'; r.append(rt); }
+      head.append(l, r);
+      const t = document.createElement('div'); t.className = 'track';
+      const f = document.createElement('div'); f.className = 'fill';
+      f.style.width = k.ukupno ? Math.max((n / k.ukupno) * 100, n ? 1.5 : 0) + '%' : '0';
+      t.append(f); d.append(head, t);
+      return d;
+    }));
+
+    const figs = [
+      ['Nacrti spremni za slanje', k.nacrti],
+      ['Još nisu kontaktirani', k.novo],
+      ['Firmi na listi za zvanje', p.na_listi],
+      ['Od toga pozvano', p.pozvano],
+    ];
+    $('figs').replaceChildren(...figs.map(([label, n]) => {
+      const d = document.createElement('div'); d.className = 'fig';
+      const sp = document.createElement('span'); sp.textContent = label;
+      const st = document.createElement('strong'); st.textContent = nf.format(n);
+      d.append(sp, st); return d;
+    }));
+  }
+
+  document.querySelectorAll('.seg button').forEach((b) => b.addEventListener('click', () => draw(b.dataset.g)));
+  draw('sve');
+})();
+</script>
+</body>
+</html>
