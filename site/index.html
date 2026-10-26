@@ -46,7 +46,7 @@
   .step.main .fill { background: var(--accent); }
   .lower { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; padding-top: 32px; }
   h2 { font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; margin: 0 0 16px; }
-  .figs { display: flex; flex-direction: column; gap: 20px; }
+  .figs { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px; }
   .fig span { display: block; font-size: 13px; color: var(--muted); }
   .fig strong { font-family: var(--serif); font-weight: 400; font-size: 34px; font-variant-numeric: tabular-nums; }
   table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 14px; }
@@ -84,7 +84,7 @@
 
   <section class="lower">
     <div>
-      <h2>Na čekanju</h2>
+      <h2>Šta čeka</h2>
       <div class="figs" id="figs"></div>
     </div>
     <div>
@@ -138,7 +138,8 @@
     const s = $('sentence'); s.replaceChildren();
     const add = (t, bold) => { const el = bold ? document.createElement('b') : document.createTextNode(t); if (bold) el.textContent = t; s.append(el); };
     add('Od '); add(nf.format(k.ukupno), true); add(' leadova kontaktirano je '); add(nf.format(k.kontaktirano), true);
-    add('. Odgovorilo je '); add(nf.format(k.odgovorili), true); add(', a zainteresovanih je '); add(nf.format(k.zainteresovani), true); add('.');
+    add('. Odgovorilo je '); add(nf.format(k.odgovorili), true); add(', zainteresovanih je '); add(nf.format(k.zainteresovani), true);
+    add(', a '); add(nf.format(k.bez_odgovora ?? 0), true); add(' se još nije javilo.');
 
     const steps = [
       ['Leadova u bazi', k.ukupno, null],
@@ -163,6 +164,8 @@
     }));
 
     const figs = [
+      ['Nisu se javili', k.bez_odgovora ?? 0],
+      ['Za follow-up danas', k.follow_up_danas ?? 0],
       ['Nacrti spremni za slanje', k.nacrti],
       ['Još nisu kontaktirani', k.novo],
       ['Firmi na listi za zvanje', p.na_listi],

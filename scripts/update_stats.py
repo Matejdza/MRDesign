@@ -10,7 +10,8 @@ Needs two environment variables (set as GitHub Secrets):
 import json
 import os
 import sys
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 import requests
@@ -66,8 +67,23 @@ def status_of(row: dict) -> str:
     return str(row.get("Status", "")).strip()
 
 
-def funnel(rows: list[dict]) -> dict:
+def plus_workdays(iso: str, n: int = 3) -> date | None:
+    try:
+        d = date.fromisoformat(str(iso).strip()[:10])
+    except ValueError:
+        return None
+    added = 0
+    while added < n:
+        d += timedelta(days=1)
+        if d.weekday() < 5:
+            added += 1
+    return d
+
+
+def funnel(rows: list[dict], today: date) -> dict:
     st = [status_of(r).lower() for r in rows]
+    poslato = [r for r in rows if status_of(r).lower() == "poslato"]
+    due = [plus_workdays(r.get("Poslednji kontakt", "")) for r in poslato]
     novo = sum(s in ("novo", "") for s in st)
     nacrti = sum(s == "nacrt spreman" for s in st)
     kontaktirano = len(st) - novo - nacrti
@@ -78,16 +94,19 @@ def funnel(rows: list[dict]) -> dict:
         "kontaktirano": kontaktirano,
         "odgovorili": odgovorili,
         "zainteresovani": zainteresovani,
+        "bez_odgovora": len(poslato),
+        "follow_up_danas": sum(d is not None and d <= today for d in due),
         "nacrti": nacrti,
         "novo": novo,
     }
 
 
 def build(leads: dict[str, list[dict]], calls: dict[str, list[dict]]) -> dict:
+    today = datetime.now(ZoneInfo("Europe/Belgrade")).date()
     all_rows = [r for rows in leads.values() for r in rows if r.get("Firma")]
-    groups = {"sve": funnel(all_rows)}
+    groups = {"sve": funnel(all_rows, today)}
     for g, rows in leads.items():
-        groups[g] = funnel([r for r in rows if r.get("Firma")])
+        groups[g] = funnel([r for r in rows if r.get("Firma")], today)
 
     statuses: dict[str, dict] = {}
     for g, rows in leads.items():
