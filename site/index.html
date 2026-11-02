@@ -15,51 +15,83 @@
     --muted: #6d675c;
     --rule: #d9d2c3;
     --track: #e6e0d2;
-    --bar: #a59d8d;
     --accent: #2f5b45;
+    --warn: #a4621c;
+    --k-novo: #d3cbba;
+    --k-nacrt: #a99f8c;
+    --k-ceka: #c9954a;
+    --k-toplo: #2f5b45;
+    --k-odbili: #8c5b55;
+    --k-nevalidan: #4e4a42;
+    --s-sent: #b9b09e;
     --sans: "IBM Plex Sans", system-ui, sans-serif;
     --serif: "Newsreader", Georgia, serif;
   }
   @media (prefers-color-scheme: dark) {
-    :root { --paper: #191815; --ink: #ece7dc; --muted: #9c9587; --rule: #34312b; --track: #2a2824; --bar: #6f685c; --accent: #7fb595; }
+    :root {
+      --paper: #191815; --ink: #ece7dc; --muted: #9c9587; --rule: #34312b; --track: #2a2824; --accent: #7fb595; --warn: #e0a35a;
+      --k-novo: #4a463e; --k-nacrt: #6f685c; --k-ceka: #c9954a; --k-toplo: #7fb595; --k-odbili: #b58580; --k-nevalidan: #a39c8e; --s-sent: #5c574d;
+    }
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 15px; line-height: 1.5; }
-  .wrap { max-width: 68rem; margin: 0 auto; padding: 40px 16px 56px; }
+  .wrap { max-width: 72rem; margin: 0 auto; padding: 40px 16px 56px; }
   .top { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; border-bottom: 1px solid var(--ink); padding-bottom: 12px; }
-  .brand { font-family: var(--serif); font-size: 20px; letter-spacing: .01em; }
+  .brand { font-family: var(--serif); font-size: 20px; }
   .stamp { color: var(--muted); font-size: 13px; }
-  .lead { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; padding: 40px 0; border-bottom: 1px solid var(--rule); }
-  .sentence { font-family: var(--serif); font-size: clamp(26px, 3.4vw, 40px); line-height: 1.22; margin: 0; font-weight: 400; }
+  .lead { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; padding: 36px 0 28px; }
+  .sentence { font-family: var(--serif); font-size: clamp(24px, 3.2vw, 38px); line-height: 1.22; margin: 0; font-weight: 400; max-width: 44rem; }
   .sentence b { font-weight: 500; color: var(--accent); font-variant-numeric: tabular-nums; }
-  .seg { display: flex; gap: 0; margin-top: 28px; border: 1px solid var(--ink); width: max-content; max-width: 100%; }
+  .seg { display: flex; flex-wrap: wrap; border: 1px solid var(--ink); }
   .seg button { font: inherit; font-size: 13px; background: none; color: var(--ink); border: 0; padding: 7px 14px; cursor: pointer; }
   .seg button + button { border-left: 1px solid var(--ink); }
   .seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
-  .funnel { display: flex; flex-direction: column; gap: 18px; align-self: center; }
-  .step-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
-  .step-name { font-size: 13px; color: var(--muted); }
-  .step-num { font-family: var(--serif); font-size: 28px; font-variant-numeric: tabular-nums; }
-  .step-rate { font-size: 12px; color: var(--muted); margin-left: 8px; font-variant-numeric: tabular-nums; }
+  .kpis { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+  .kpi { padding: 18px 16px 18px 0; }
+  .kpi + .kpi { padding-left: 16px; border-left: 1px solid var(--rule); }
+  .kpi span { display: block; font-size: 12px; color: var(--muted); }
+  .kpi strong { display: block; font-family: var(--serif); font-weight: 400; font-size: 36px; line-height: 1.15; font-variant-numeric: tabular-nums; }
+  .kpi em { font-style: normal; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  section { padding-top: 36px; }
+  h2 { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; margin: 0 0 6px; }
+  .note { color: var(--muted); font-size: 13px; margin: 0 0 16px; max-width: 40rem; }
+  .tips { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+  .tips li { display: grid; grid-template-columns: 7rem 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--rule); max-width: 60rem; }
+  .tips .when { font-size: 12px; color: var(--muted); padding-top: 3px; }
+  .tips li.now .when { color: var(--warn); font-weight: 500; }
+  .tips b { font-weight: 500; font-variant-numeric: tabular-nums; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--muted); margin-bottom: 14px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; font-variant-numeric: tabular-nums; }
+  .legend i { width: 10px; height: 10px; display: inline-block; }
+  .rows { display: flex; flex-direction: column; gap: 12px; }
+  .row { display: grid; grid-template-columns: 6.5rem 1fr 4.5rem; align-items: center; gap: 10px; font-size: 13px; }
+  .row.dim { opacity: .4; }
+  .row .lab { color: var(--muted); }
+  .row .val { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
+  .row .val b { color: var(--ink); font-weight: 500; }
+  .stack { display: flex; height: 24px; gap: 2px; }
+  .stack span { display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--paper); overflow: hidden; font-variant-numeric: tabular-nums; }
   .track { height: 10px; background: var(--track); }
-  .fill { height: 100%; width: 0; background: var(--bar); }
-  .step.main .fill { background: var(--accent); }
-  .lower { display: grid; grid-template-columns: 1fr 2fr; gap: 48px; padding-top: 32px; }
-  h2 { font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: .08em; margin: 0 0 16px; }
-  .figs { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 24px; }
-  .fig span { display: block; font-size: 13px; color: var(--muted); }
-  .fig strong { font-family: var(--serif); font-weight: 400; font-size: 34px; font-variant-numeric: tabular-nums; }
-  table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 14px; }
-  th { text-align: left; font-weight: 500; color: var(--muted); font-size: 12px; padding: 0 8px 8px 0; border-bottom: 1px solid var(--ink); }
-  td { padding: 10px 8px 10px 0; border-bottom: 1px solid var(--rule); }
-  .num { text-align: right; }
-  .cellbar { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
-  .cellbar i { display: block; height: 6px; background: var(--bar); }
-  .note { margin-top: 40px; color: var(--muted); font-size: 12px; max-width: 40rem; }
+  .fill { height: 100%; }
+  .flow h3 { font-size: 13px; font-weight: 500; margin: 0 0 8px; }
+  .flow + .flow { margin-top: 22px; }
+  .chart { position: relative; min-height: 220px; }
+  .chart svg { display: block; width: 100%; }
+  .chart text { font-family: var(--sans); font-size: 11px; fill: var(--muted); }
+  .chart text.lab { fill: var(--ink); font-size: 12px; }
+  .tip { position: absolute; pointer-events: none; background: var(--paper); border: 1px solid var(--ink); padding: 6px 10px; font-size: 12px; white-space: nowrap; display: none; z-index: 2; }
+  .tip div { display: flex; gap: 6px; align-items: center; font-variant-numeric: tabular-nums; }
+  .tip i { width: 8px; height: 8px; display: inline-block; }
+  .foot { margin-top: 48px; padding-top: 14px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 12px; max-width: 44rem; }
   .err { color: var(--muted); padding: 40px 0; }
-  @media (max-width: 760px) {
-    .lead, .lower { grid-template-columns: 1fr; gap: 32px; }
-    .wrap { padding-top: 24px; }
+  @media (max-width: 860px) {
+    .two { grid-template-columns: 1fr; gap: 0; }
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+    .kpi, .kpi + .kpi { padding: 14px 12px 14px 0; border-left: 0; border-bottom: 1px solid var(--rule); }
+    .kpi:nth-child(even) { padding-left: 12px; border-left: 1px solid var(--rule); }
+    .tips li { grid-template-columns: 1fr; gap: 2px; }
+    .row { grid-template-columns: 5.5rem 1fr 4rem; }
   }
 </style>
 </head>
@@ -70,117 +102,259 @@
     <div class="stamp" id="stamp">Učitavam brojeve</div>
   </div>
 
-  <section class="lead">
-    <div>
-      <p class="sentence" id="sentence">&nbsp;</p>
-      <div class="seg" role="group" aria-label="Niša">
-        <button type="button" data-g="sve" aria-pressed="true">Sve niše</button>
-        <button type="button" data-g="gradjevina" aria-pressed="false">Građevina</button>
-        <button type="button" data-g="ordinacije" aria-pressed="false">Ordinacije</button>
-      </div>
-    </div>
-    <div class="funnel" id="funnel" aria-label="Levak"></div>
+  <div class="lead">
+    <p class="sentence" id="sentence">&nbsp;</p>
+    <div class="seg" role="group" aria-label="Niša" id="seg"></div>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <section>
+    <h2>Predlozi</h2>
+    <p class="note">Računaju se iz tabele pri svakom osvežavanju. Prvo ono što je hitno.</p>
+    <ol class="tips" id="tips"></ol>
   </section>
 
-  <section class="lower">
-    <div>
-      <h2>Šta čeka</h2>
-      <div class="figs" id="figs"></div>
-    </div>
-    <div>
-      <h2>Status po niši</h2>
-      <table>
-        <thead><tr><th>Status</th><th class="num">Građevina</th><th class="num">Ordinacije</th><th class="num">Ukupno</th></tr></thead>
-        <tbody id="statusi"></tbody>
-      </table>
-    </div>
+  <div class="two">
+    <section>
+      <h2>Gde su leadovi sada</h2>
+      <p class="note">Svaka traka je jedna niša, boje su faze.</p>
+      <div class="legend" id="kat-legend"></div>
+      <div class="rows" id="kat-rows"></div>
+    </section>
+    <section>
+      <h2>Nedelju po nedelju</h2>
+      <p class="note">Iz lista Metrike. Iznad kolona je stopa odgovora.</p>
+      <div class="legend" id="ned-legend"></div>
+      <div class="chart" id="ned-chart"></div>
+    </section>
+  </div>
+
+  <div class="two">
+    <section>
+      <h2>Koja niša odgovara</h2>
+      <p class="note">Udeo kontaktiranih firmi koje su odgovorile, bilo da su zainteresovane ili ne.</p>
+      <div class="rows" id="nise"></div>
+    </section>
+    <section>
+      <h2>Mejl ili telefon</h2>
+      <p class="note">Koliko firmi stigne do odgovora kojim kanalom.</p>
+      <div id="kanali"></div>
+    </section>
+  </div>
+
+  <section>
+    <h2>Aktivnost po danu</h2>
+    <p class="note">Koliko firmi je dodato u bazu i koliko je kontaktirano tog dana.</p>
+    <div class="legend" id="akt-legend"></div>
+    <div class="chart" id="akt-chart"></div>
   </section>
 
-  <p class="note">Ova stranica prikazuje samo zbirne brojeve. Imena firmi, kontakti i beleške ostaju u privatnoj tabeli. Brojevi se osvežavaju automatski svakog sata.</p>
+  <p class="foot">Ova stranica prikazuje samo zbirne brojeve. Imena firmi, kontakti i beleške ostaju u privatnoj tabeli. Brojevi se osvežavaju automatski svakog sata.</p>
 </div>
 
 <script>
 (async () => {
   const $ = (id) => document.getElementById(id);
   const nf = new Intl.NumberFormat('sr-Latn');
-  const pf = (a, b) => (b ? Math.round((a / b) * 100) + '%' : '0%');
+  const num = (v) => nf.format(v || 0);
+  const pct = (v) => Math.round((v || 0) * 100) + '%';
+  const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+  const pl = (n, one, few, many) => { const a = n % 10, b = n % 100; return a === 1 && b !== 11 ? one : a >= 2 && a <= 4 && (b < 12 || b > 14) ? few : many; };
+  const fmtDay = (iso) => { const p = String(iso || '').split('-'); return p[2] ? `${+p[2]}.${+p[1]}.` : ''; };
+  const SVG = 'http://www.w3.org/2000/svg';
+  const sv = (tag, attrs) => { const e = document.createElementNS(SVG, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); return e; };
+  const KATS = [
+    ['novo', 'Novo', '--k-novo'], ['nacrt', 'Nacrt', '--k-nacrt'], ['ceka', 'Čeka odgovor', '--k-ceka'],
+    ['toplo', 'Toplo', '--k-toplo'], ['odbili', 'Odbili', '--k-odbili'], ['nevalidan', 'Nevalidan mejl', '--k-nevalidan'],
+  ];
+
   let stats;
   try {
     const res = await fetch('stats.json', { cache: 'no-store' });
     if (!res.ok) throw new Error(res.status);
     stats = await res.json();
+    if (!stats.groups || !stats.groups.sve || stats.groups.sve.toplo === undefined) throw new Error('stari format');
   } catch (e) {
     $('stamp').textContent = 'Brojevi trenutno nisu dostupni';
-    $('sentence').textContent = 'Nije uspelo učitavanje brojeva.';
+    $('sentence').textContent = 'Nije uspelo učitavanje brojeva. Pokušaj ponovo za par minuta.';
     return;
   }
+  const NAMES = stats.names || { sve: 'Sve niše' };
+  const GROUPS = Object.keys(stats.groups);
+  const NICHES = GROUPS.filter((g) => g !== 'sve');
+  let g = 'sve';
+  try { const saved = localStorage.getItem('mr-grupa'); if (saved && stats.groups[saved]) g = saved; } catch (e) {}
 
-  const when = new Date(stats.updated_at);
-  $('stamp').textContent = 'Ažurirano ' + when.toLocaleString('sr-Latn', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
+  $('stamp').textContent = 'Ažurirano ' + new Date(stats.updated_at).toLocaleString('sr-Latn', { day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' });
 
-  const max = Math.max(...stats.statusi.map((s) => s.ukupno), 1);
-  $('statusi').replaceChildren(...stats.statusi.map((s) => {
-    const tr = document.createElement('tr');
-    const cell = (t, cls) => { const td = document.createElement('td'); if (cls) td.className = cls; td.textContent = t; tr.append(td); return td; };
-    cell(s.status); cell(nf.format(s.gradjevina), 'num'); cell(nf.format(s.ordinacije), 'num');
-    const td = cell('', 'num'); const w = document.createElement('div'); w.className = 'cellbar';
-    const bar = document.createElement('i'); bar.style.width = (s.ukupno / max) * 72 + 'px';
-    const n = document.createElement('span'); n.textContent = nf.format(s.ukupno);
-    w.append(bar, n); td.append(w);
-    return tr;
-  }));
+  const seg = $('seg');
+  GROUPS.forEach((gg) => {
+    const b = el('button', '', NAMES[gg] || gg); b.type = 'button'; b.dataset.g = gg;
+    b.addEventListener('click', () => { g = gg; try { localStorage.setItem('mr-grupa', g); } catch (e) {} draw(); });
+    seg.append(b);
+  });
 
-  function draw(g) {
-    const k = stats.groups[g];
-    const p = stats.pozivi[g] || { na_listi: 0, pozvano: 0 };
-    document.querySelectorAll('.seg button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.g === g)));
+  const tip = el('div', 'tip');
+  const showTip = (box, ev, title, rows) => {
+    tip.replaceChildren(el('div', '', title), ...rows.map(([l, c, v]) => { const d = el('div'); if (c) { const i = el('i'); i.style.background = c; d.append(i); } d.append(document.createTextNode(`${l}: ${v}`)); return d; }));
+    tip.firstChild.style.color = css('--muted');
+    if (tip.parentNode !== box) box.append(tip);
+    tip.style.display = 'block';
+    const r = box.getBoundingClientRect();
+    tip.style.left = Math.max(0, Math.min(ev.clientX - r.left + 12, box.clientWidth - tip.offsetWidth)) + 'px';
+    tip.style.top = Math.max(0, ev.clientY - r.top - tip.offsetHeight - 8) + 'px';
+  };
+  const hideTip = () => { tip.style.display = 'none'; };
 
-    const s = $('sentence'); s.replaceChildren();
-    const add = (t, bold) => { const el = bold ? document.createElement('b') : document.createTextNode(t); if (bold) el.textContent = t; s.append(el); };
-    add('Od '); add(nf.format(k.ukupno), true); add(' leadova kontaktirano je '); add(nf.format(k.kontaktirano), true);
-    add('. Odgovorilo je '); add(nf.format(k.odgovorili), true); add(', zainteresovanih je '); add(nf.format(k.zainteresovani), true);
-    add(', a '); add(nf.format(k.bez_odgovora ?? 0), true); add(' se još nije javilo.');
+  const legend = (box, items) => box.replaceChildren(...items.map(([l, c]) => { const s = el('span'); const i = el('i'); i.style.background = c; s.append(i, document.createTextNode(l)); return s; }));
 
-    const steps = [
-      ['Leadova u bazi', k.ukupno, null],
-      ['Kontaktirano', k.kontaktirano, pf(k.kontaktirano, k.ukupno)],
-      ['Odgovorili', k.odgovorili, pf(k.odgovorili, k.kontaktirano)],
-      ['Zainteresovani', k.zainteresovani, pf(k.zainteresovani, k.odgovorili)],
-    ];
-    $('funnel').replaceChildren(...steps.map(([name, n, rate], i) => {
-      const d = document.createElement('div'); d.className = 'step' + (i === 3 ? ' main' : '');
-      const head = document.createElement('div'); head.className = 'step-head';
-      const l = document.createElement('span'); l.className = 'step-name'; l.textContent = name;
-      const r = document.createElement('span');
-      const num = document.createElement('span'); num.className = 'step-num'; num.textContent = nf.format(n);
-      r.append(num);
-      if (rate) { const rt = document.createElement('span'); rt.className = 'step-rate'; rt.textContent = rate + ' od prethodnog'; r.append(rt); }
-      head.append(l, r);
-      const t = document.createElement('div'); t.className = 'track';
-      const f = document.createElement('div'); f.className = 'fill';
-      f.style.width = k.ukupno ? Math.max((n / k.ukupno) * 100, n ? 1.5 : 0) + '%' : '0';
-      t.append(f); d.append(head, t);
-      return d;
-    }));
-
-    const figs = [
-      ['Nisu se javili', k.bez_odgovora ?? 0],
-      ['Za follow-up danas', k.follow_up_danas ?? 0],
-      ['Nacrti spremni za slanje', k.nacrti],
-      ['Još nisu kontaktirani', k.novo],
-      ['Firmi na listi za zvanje', p.na_listi],
-      ['Od toga pozvano', p.pozvano],
-    ];
-    $('figs').replaceChildren(...figs.map(([label, n]) => {
-      const d = document.createElement('div'); d.className = 'fig';
-      const sp = document.createElement('span'); sp.textContent = label;
-      const st = document.createElement('strong'); st.textContent = nf.format(n);
-      d.append(sp, st); return d;
-    }));
+  function grouped(box, rows, xKey, xFmt, series, label) {
+    if (!rows.length) { box.replaceChildren(el('p', 'note', 'Još nema podataka za ovaj izbor.')); return; }
+    const W = Math.max(box.clientWidth || 600, 260), H = 220, top = label ? 26 : 10;
+    const ymax = Math.max(1, ...rows.flatMap((r) => series.map(([k]) => r[k] || 0)));
+    const step = Math.pow(10, Math.floor(Math.log10(ymax)));
+    const nice = Math.ceil(ymax / step) * step;
+    const y = (v) => (H - 26) - (v / nice) * (H - 26 - top);
+    const ticks = [0, nice / 2, nice].filter((t, i, a) => Number.isInteger(t) && a.indexOf(t) === i);
+    const svg = sv('svg', { viewBox: `0 0 ${W} ${H}`, height: H, role: 'img' });
+    const ml = String(num(nice)).length * 7 + 10;
+    ticks.forEach((t) => {
+      svg.append(sv('line', { x1: ml, x2: W, y1: y(t), y2: y(t), stroke: css(t === 0 ? '--muted' : '--rule') }));
+      const tx = sv('text', { x: ml - 6, y: y(t), dy: '0.32em', 'text-anchor': 'end' }); tx.textContent = num(t); svg.append(tx);
+    });
+    const band = (W - ml) / rows.length, inner = band * 0.72, bw = Math.min(inner / series.length - 2, 32);
+    const every = Math.max(1, Math.ceil(46 / band));
+    rows.forEach((r, i) => {
+      const x0 = ml + i * band + (band - inner) / 2;
+      series.forEach(([k, , c], j) => {
+        const v = r[k] || 0; if (!v) return;
+        const x = x0 + j * (inner / series.length) + (inner / series.length - bw) / 2;
+        svg.append(sv('rect', { x, width: bw, y: y(v), height: y(0) - y(v), fill: c }));
+      });
+      if (label) { const t = sv('text', { class: 'lab', x: x0 + inner / 2, y: y(Math.max(...series.map(([k]) => r[k] || 0))) - 6, 'text-anchor': 'middle' }); t.textContent = label(r); svg.append(t); }
+      if (i % every === 0) { const t = sv('text', { x: x0 + inner / 2, y: H - 8, 'text-anchor': 'middle' }); t.textContent = xFmt(r[xKey]); svg.append(t); }
+      const hit = sv('rect', { x: ml + i * band, width: band, y: 0, height: H - 20, fill: 'transparent' });
+      hit.addEventListener('mousemove', (ev) => showTip(box, ev, xFmt(r[xKey]), series.map(([k, l, c]) => [l, c, num(r[k])])));
+      hit.addEventListener('mouseleave', hideTip);
+      svg.append(hit);
+    });
+    box.replaceChildren(svg);
   }
 
-  document.querySelectorAll('.seg button').forEach((b) => b.addEventListener('click', () => draw(b.dataset.g)));
-  draw('sve');
+  function hbar(label, value, max, color, valText, dim) {
+    const row = el('div', 'row' + (dim ? ' dim' : ''));
+    const tr = el('div', 'track'); const f = el('div', 'fill'); f.style.width = (max ? value / max * 100 : 0) + '%'; f.style.background = color; tr.append(f);
+    const v = el('span', 'val'); v.append(el('b', '', valText[0]), document.createTextNode(valText[1] ? ' ' + valText[1] : ''));
+    row.append(el('span', 'lab', label), tr, v);
+    return row;
+  }
+
+  function tips(k) {
+    const out = [];
+    const add = (when, now, parts) => out.push({ when, now, parts });
+    if (k.follow_up_danas) add('Danas', true, ['Pošalji follow-up za ', [num(k.follow_up_danas)], ' ' + pl(k.follow_up_danas, 'firmu', 'firme', 'firmi') + '. Kratak drugi mejl sa jednom novom stvari, recimo snimkom ekrana njihovog sajta na telefonu, radi bolje od "samo proveravam".']);
+    else if (k.sledeci_follow_up) add('Uskoro', false, ['Sledeći follow-up pada ', [fmtDay(k.sledeci_follow_up)], '. Pripremi nacrte dan ranije.']);
+    if (k.toplo) add('Danas', true, ['Imaš ', [num(k.toplo)], ' ' + pl(k.toplo, 'topao lead', 'topla leada', 'toplih leadova') + '. Njima se javi pre novih mejlova, jer su najbliži poslu. Kad neko kaže da mu se sviđa, odmah predloži 10 minuta razgovora sa dva konkretna termina.']);
+    const pending = (k.na_listi || 0) - (k.pozvano || 0);
+    if (pending > 0) {
+      const extra = k.poziv_kontaktirano ? ` Telefonom si do razgovora došao u ${pct(k.stopa_poziv)} slučajeva, a mejlom odgovara ${pct(k.stopa_mejl)}.` : '';
+      const w = Math.ceil(pending / 50);
+      add('Ove nedelje', false, ['Na listama za zvanje čeka ', [num(pending)], ' ' + pl(pending, 'firma', 'firme', 'firmi') + ', pozvano je ', [num(k.pozvano)], '.' + extra + ` Uz 10 poziva dnevno između 14 i 15h lista je gotova za ${w} ${pl(w, 'nedelju', 'nedelje', 'nedelja')}.`]);
+    }
+    if (g === 'sve') {
+      const ranked = NICHES.map((gg) => ({ gg, ...stats.groups[gg] })).filter((x) => x.kontaktirano >= 10).sort((a, b) => b.stopa_odgovor - a.stopa_odgovor);
+      if (ranked.length >= 2 && ranked[0].stopa_odgovor > ranked[ranked.length - 1].stopa_odgovor) {
+        const best = ranked[0], worst = ranked[ranked.length - 1];
+        add('Strategija', false, ['Najviše odgovara ', [NAMES[best.gg]], ` (${pct(best.stopa_odgovor)}), najmanje `, [NAMES[worst.gg]], ` (${pct(worst.stopa_odgovor)}). Sledeću turu leadova usmeri više na ${NAMES[best.gg].toLowerCase()}.`]);
+      }
+    }
+    const w = (stats.nedelje || []).filter((x) => x.grupa === g);
+    if (w.length >= 2) {
+      const [a, c] = w.slice(-2);
+      if (c.stopa < a.stopa) add('Strategija', false, ['Stopa odgovora je pala sa ', [pct(a.stopa)], ' na ', [pct(c.stopa)], ` dok je broj poruka porastao sa ${num(a.poslato)} na ${num(c.poslato)}. Manje mejlova sa više ličnog detalja (ime vlasnika, jedna konkretna greška na sajtu) obično daje više odgovora.`]);
+    }
+    const sum = (key) => w.reduce((s, x) => s + (x[key] || 0), 0);
+    if (sum('prihvatili') > 0 && sum('pozivi') === 0) add('Strategija', false, ['Do sada je ', [num(sum('prihvatili'))], ' ' + pl(sum('prihvatili'), 'firma pristala', 'firme pristale', 'firmi pristalo') + ' da vidi sajt, a nijedan razgovor nije zakazan. Posle demo snimka uvek završi pitanjem za kratak poziv u tačno određeno vreme.']);
+    if (k.nevalidan) add('Ove nedelje', false, [[num(k.nevalidan)], ' ' + pl(k.nevalidan, 'mejl je vraćen kao nevažeći', 'mejla su vraćena kao nevažeća', 'mejlova je vraćeno kao nevažeće') + '. Te firme prebaci na listu za zvanje.']);
+    if (k.nacrt) add('Ove nedelje', false, [[num(k.nacrt)], ' ' + pl(k.nacrt, 'nacrt čeka', 'nacrta čekaju', 'nacrta čeka') + ' slanje. Najbolje ih pošalji utorak do četvrtak pre podne.']);
+    return out.slice(0, 7);
+  }
+
+  function draw() {
+    const k = stats.groups[g];
+    seg.querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.g === g)));
+
+    const s = $('sentence'); s.replaceChildren();
+    const add = (t, bold) => s.append(bold ? el('b', '', t) : document.createTextNode(t));
+    add('Kontaktirano je '); add(num(k.kontaktirano), true); add(' od '); add(num(k.ukupno), true); add(' firmi. Odgovorilo je ');
+    add(num(k.odgovorili), true); add(` (${pct(k.stopa_odgovor)}), a toplih leadova je `); add(num(k.toplo), true); add('.');
+
+    const kp = [
+      ['Topli leadovi', num(k.toplo), 'zainteresovani i odloženi'],
+      ['Stopa odgovora', pct(k.stopa_odgovor), `${num(k.odgovorili)} od ${num(k.kontaktirano)}`],
+      ['Nisu se javili', num(k.ceka), `${num(k.ceka_followup)} čeka follow-up`],
+      ['Za zvanje', num((k.na_listi || 0) - (k.pozvano || 0)), `pozvano ${num(k.pozvano)} od ${num(k.na_listi)}`],
+      ['Nekontaktirani', num(k.novo), `plus ${num(k.nacrt)} ${pl(k.nacrt, 'nacrt', 'nacrta', 'nacrta')}`],
+    ];
+    $('kpis').replaceChildren(...kp.map(([l, v, sub]) => { const d = el('div', 'kpi'); d.append(el('span', '', l), el('strong', '', v), el('em', '', sub)); return d; }));
+
+    const t = tips(k);
+    $('tips').replaceChildren(...(t.length ? t : [{ when: '', parts: ['Za ovaj izbor nema predloga.'] }]).map((tp) => {
+      const li = el('li', tp.now ? 'now' : ''); const p = el('span');
+      tp.parts.forEach((part) => p.append(Array.isArray(part) ? el('b', '', part[0]) : document.createTextNode(part)));
+      li.append(el('span', 'when', tp.when), p); return li;
+    }));
+
+    legend($('kat-legend'), KATS.filter(([kk]) => kk !== 'nevalidan' || k.nevalidan).map(([kk, l, c]) => [`${l} ${num(k[kk])}`, css(c)]));
+    const max = Math.max(...GROUPS.map((gg) => stats.groups[gg].ukupno), 1);
+    $('kat-rows').replaceChildren(...GROUPS.map((gg) => {
+      const r = stats.groups[gg];
+      const row = el('div', 'row' + (g !== 'sve' && gg !== g && gg !== 'sve' ? ' dim' : ''));
+      const wrap = el('div'); const bar = el('div', 'stack'); bar.style.width = (r.ukupno / max * 100) + '%';
+      KATS.forEach(([kk, l, c]) => {
+        const v = r[kk]; if (!v) return;
+        const sp = el('span', '', r.ukupno && v / r.ukupno > 0.07 ? num(v) : ''); sp.style.flex = `${v} 0 0`; sp.style.background = css(c);
+        sp.addEventListener('mousemove', (ev) => showTip($('kat-rows'), ev, NAMES[gg], [[l, css(c), `${num(v)} (${pct(v / r.ukupno)})`]]));
+        sp.addEventListener('mouseleave', hideTip);
+        bar.append(sp);
+      });
+      wrap.append(bar);
+      row.append(el('span', 'lab', NAMES[gg]), wrap, el('span', 'val', num(r.ukupno)));
+      return row;
+    }));
+    $('kat-rows').style.position = 'relative';
+
+    legend($('ned-legend'), [['Poslate poruke', css('--s-sent')], ['Odgovori', css('--accent')]]);
+    grouped($('ned-chart'), (stats.nedelje || []).filter((x) => x.grupa === g), 'nedelja', (v) => v,
+      [['poslato', 'Poslate poruke', css('--s-sent')], ['odgovori', 'Odgovori', css('--accent')]], (r) => pct(r.stopa));
+
+    const nmax = Math.max(0.1, ...GROUPS.map((gg) => stats.groups[gg].stopa_odgovor));
+    $('nise').replaceChildren(...GROUPS.map((gg) => {
+      const r = stats.groups[gg];
+      return hbar(NAMES[gg], r.stopa_odgovor, nmax, gg === 'sve' ? css('--s-sent') : css('--accent'), [pct(r.stopa_odgovor), `${num(r.odgovorili)}/${num(r.kontaktirano)}`], g !== 'sve' && gg !== g && gg !== 'sve');
+    }));
+
+    const block = (title, steps) => {
+      const d = el('div', 'flow'); d.append(el('h3', '', title));
+      const rows = el('div', 'rows'); const m = Math.max(steps[0][1], 1);
+      steps.forEach(([l, v, c, note]) => rows.append(hbar(l, v, m, c, [num(v), note || ''])));
+      d.append(rows); return d;
+    };
+    $('kanali').replaceChildren(
+      block('Mejl', [['Kontaktirano', k.mejl_kontaktirano, css('--s-sent')], ['Odgovorili', k.mejl_odgovorili, css('--k-ceka'), pct(k.stopa_mejl)], ['Toplo', k.mejl_toplo, css('--accent')]]),
+      block('Telefon', [['Na listi', k.na_listi, css('--s-sent')], ['Pozvano', k.pozvano, css('--k-ceka'), k.na_listi ? pct(k.pozvano / k.na_listi) : ''], ['Razgovor', k.poziv_odgovorili, css('--k-nacrt')], ['Toplo', k.poziv_toplo, css('--accent')]]),
+    );
+
+    legend($('akt-legend'), [['Dodato u bazu', css('--s-sent')], ['Kontaktirano', css('--accent')]]);
+    grouped($('akt-chart'), (stats.aktivnost || []).filter((x) => x.grupa === g), 'dan', fmtDay,
+      [['dodato', 'Dodato u bazu', css('--s-sent')], ['kontaktirano', 'Kontaktirano', css('--accent')]]);
+  }
+
+  draw();
+  let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(draw, 150); });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change', draw);
 })();
 </script>
 </body>
